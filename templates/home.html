@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div class="status-info">
+        <h2>✓ Backend Server is Running</h2>
+        <p>The Job Platform backend API is active and ready to serve requests.</p>
+    </div>
+    
+    <div class="status-info">
+        <h2>API Documentation</h2>
+        <p>Access the admin panel at <span class="highlight">/admin/</span></p>
+        <p>Configure your frontend to connect to this backend using the API endpoints.</p>
+    </div>
+    
+    <div class="status-info">
+        <h2>Vercel Speed Insights</h2>
+        <p>Speed Insights monitoring has been configured for this application.</p>
+        <p><strong>Note:</strong> Vercel Speed Insights is primarily a client-side monitoring tool designed for frontend applications.</p>
+        <p>To enable full Speed Insights tracking:</p>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>For <strong>Next.js frontend:</strong> Install <span class="highlight">@vercel/speed-insights</span> and import <span class="highlight">SpeedInsights</span> in your root layout</li>
+            <li>For <strong>other frontend frameworks:</strong> Install <span class="highlight">@vercel/speed-insights</span> and call <span class="highlight">injectSpeedInsights()</span> in your main entry point</li>
+            <li>For <strong>plain HTML:</strong> Add the script tag: <span class="highlight">&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</span></li>
+        </ul>
+        <p style="margin-top: 15px;">For more details, see the <a href="https://vercel.com/docs/speed-insights" target="_blank">Vercel Speed Insights documentation</a></p>
+    </div>
+    
+    <div class="status-info">
+        <h2>Environment Setup</h2>
+        <p>The backend is configured with the following:</p>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Django 4.2+ for robust API development</li>
+            <li>CORS headers support for frontend integration</li>
+            <li>Security middleware for production deployment</li>
+            <li>Static file serving with Vercel</li>
+        </ul>
+    </div>
+</main>
+{% endblock %}

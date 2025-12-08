@@ -1,0 +1,20 @@
+{
+  "name": "job-platform-backend",
+  "version": "1.0.0",
+  "description": "Job Platform Backend API with Vercel Speed Insights",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python manage.py runserver",
+    "build": "echo 'Backend build step'",
+    "lint": "echo 'No linting configured for Python backend'",
+    "test": "python manage.py test"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

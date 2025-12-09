@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os # WhiteNoise statik dosya yapılandırması için gerekebilir
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-y7k=^#y0g0q6-nfs_10qdptbeduq#4*l^abfb+zbfb$j%ron6%'
+# Not: Gerçek üretimde bu değeri ortam değişkenlerinden (Environment Variables) okuyun.
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False # <--- Üretim için FALSE olarak değiştirildi!
 
-ALLOWED_HOSTS = []
+# Uygulamanızın yayınlanacağı alan adları
+ALLOWED_HOSTS = ['*', '.vercel.app'] # <--- Vercel desteği için eklendi
 
 
 # Application definition
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <--- WhiteNoise Eklendi (Static files için)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,6 +82,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# Not: Üretim için harici veritabanı (PostgreSQL, MySQL vb.) kullanılması önerilir.
 
 
 # Password validation
@@ -111,61 +116,18 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images) <--- VERSEL/WHITENOISE AYARLARI BURADA!
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-import os
-from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# ... mevcut ayarlar ...
-
-ALLOWED_HOSTS = ['*', '.vercel.app']
-
-# Static files
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-MIDDLEWARE = [
-    # ... mevcut middleware ...
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Static files için ekle
-    # ... diğer middleware ...
-]
-
-DEBUG = False  # Production için
-
-# Veritabanı (SQLite kullan, PostgreSQL sorunlu olabilir)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-
-}
-import os
-from pathlib import Path
-
-# DEBUG ve ALLOWED_HOSTS
-DEBUG = False
-ALLOWED_HOSTS = ['*']
-
-# Static files (Vercel için zorunlu)
-BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_URL = '/static/'
+# Statik dosyaların toplanacağı dizin (Vercel/WhiteNoise için kritik)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# WhiteNoise için depolama motoru (Sıkıştırma ve Manifest)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Middleware’a WhiteNoise ekle (en üste koy)
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <-- BU SATIRI EKLE
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+# Default primary key field type
+# https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

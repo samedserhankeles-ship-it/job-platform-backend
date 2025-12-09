@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "backend/wsgi.py",
-      "use": "@vercel/python",
+      "use": "@vercel/python",  
       "config": {
         "maxLambdaSize": "15mb"
       }
@@ -11,12 +11,6 @@
   ],
   "routes": [
     {
-      # 1. Statik dosyaları /static/ klasöründen yönlendir
-      "src": "/static/(.*)",
-      "dest": "staticfiles/$1" 
-    },
-    {
-      # 2. Geri kalan tüm API isteklerini WSGI'ye yönlendir
       "src": "/(.*)",
       "dest": "backend/wsgi.py"
     }

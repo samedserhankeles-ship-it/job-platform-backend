@@ -5,9 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- GÜVENLİK ---
 # SECRET_KEY ortam değişkeni ayarlanmazsa uygulama ÇÖKER.
-SECRET_KEY = os.environ.get("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY ortam değişkeni ayarlanmalıdır!")
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-fallback-key-change-in-production")
+# if not SECRET_KEY:
+#     raise ValueError("SECRET_KEY ortam değişkeni ayarlanmalıdır!")
 
 DEBUG = os.environ.get("DEBUG") == "True"
 

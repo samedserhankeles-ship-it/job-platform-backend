@@ -1,0 +1,9 @@
+ervices:
+  - type: web
+    name: job-platform
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py migrate
+    startCommand: gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      DEBUG: "False"
+      ALLOWED_HOSTS: "*"

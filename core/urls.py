@@ -6,6 +6,6 @@ router = DefaultRouter()
 router.register(r'jobs', views.JobViewSet)
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('api/', include(router.urls)),
+    path('', views.home, name='home'),           # ana sayfa
+    path('api/', include(router.urls)),          # /api/jobs/
 ]

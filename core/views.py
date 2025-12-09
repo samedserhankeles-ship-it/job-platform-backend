@@ -2,9 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .models import Job
 from .serializers import JobSerializer
-from .permissions import IsOwnerOrReadOnly # Yeni izin dosyamızı import ettik
+from .permissions import IsOwnerOrReadOnly 
 
-# (Bu fonksiyon API için gerekli değildir, HTML sayfası sunuyorsa kalabilir)
 def home(request):
     return render(request, 'home.html') 
 
@@ -14,9 +13,9 @@ class JobViewSet(viewsets.ModelViewSet):
     
     serializer_class = JobSerializer
     
-    # Güvenlik düzeltmesi: Okuma herkese açık, yazma/düzenleme/silme sahibine ait
+    # Güvenlik düzeltmesi: Yetkilendirme kuralı uygulandı
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly] 
 
-    # Güvenlik düzeltmesi: İlan oluşturulurken user alanı otomatik atanır
+    # Güvenlik düzeltmesi: Oluşturucu user alanını otomatik atar
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
